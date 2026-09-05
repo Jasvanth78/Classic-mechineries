@@ -267,10 +267,13 @@
 
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 30px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            margin: 0;
+            padding: 0;
         }
 
         .nav-links li a {
@@ -282,6 +285,9 @@
             border-radius: 4px;
             transition: all 0.3s;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
         }
 
         .nav-links li a:hover {
@@ -304,6 +310,7 @@
             min-height: 100vh;
             background: linear-gradient(to right, rgba(11, 26, 48, 0.95) 0%, rgba(11, 26, 48, 0.85) 45%, transparent 65%), url('./assets/common/Home-Section-bg.png') center/cover no-repeat;
             padding-top: 120px;
+            padding-bottom: 60px;
             display: flex;
             align-items: center;
             color: var(--white);
@@ -605,6 +612,10 @@
         .products-grid::-webkit-scrollbar {
             display: none;
             /* Safari and Chrome */
+        }
+
+        .swipe-hint {
+            display: none;
         }
 
         .product-card {
@@ -977,22 +988,15 @@
                 flex-direction: column;
             }
 
+        }
+
+        @media (max-width: 1200px) {
             .contact-bg-img {
                 display: none !important;
             }
 
             .contact-quote-text {
-                position: relative !important;
-                right: auto !important;
-                top: auto !important;
-                transform: none !important;
-                order: 3;
-                margin-top: 50px;
-                text-align: center !important;
-                width: 100% !important;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+                display: none !important;
             }
         }
 
@@ -1229,6 +1233,38 @@
             .modal-info a {
                 text-decoration: none;
             }
+
+            .product-card {
+                scroll-snap-align: start;
+            }
+
+            .products-grid {
+                scroll-snap-type: x mandatory;
+            }
+
+            #carouselLeftArrow,
+            #carouselRightArrow {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .product-card {
+                min-width: 90% !important;
+            }
+            .products-grid {
+                padding: 0;
+            }
+            .swipe-hint {
+                display: block;
+                text-align: center;
+                color: var(--white);
+                font-size: 13px;
+                margin-top: 5px;
+                margin-bottom: 15px;
+                opacity: 0.8;
+                font-style: italic;
+            }
         }
     </style>
 </head>
@@ -1314,19 +1350,17 @@
                     Crafting the Future of<br><span style="color: var(--primary-orange);">Foundry Automation</span>
                 </h2>
                 <p style="color: #475569; font-size: 16px; margin-bottom: 25px; line-height: 1.6; font-weight: 500;">
-                    Classic Foundry Machineries & Automation is committed to delivering high-quality, innovative and
-                    reliable machinery solutions for the foundry industry. Our products are designed to improve
-                    productivity, ensure consistent quality and support sustainable manufacturing.
+                    Classic Foundry Machineries & Automation is a specialized provider of foundry machinery and automation solutions, backed by 10+ years of industry experience. We are committed to delivering reliable and efficient equipment for modern casting operations, covering essential processes such as sand preparation, material handling, pouring, moulding and finishing. With a strong focus on precision, durability and practical automation, we help foundries improve productivity, maintain consistent quality and achieve smoother, more efficient production processes.
                 </p>
                 <div style="width: 40px; height: 3px; background-color: var(--primary-orange); margin-bottom: 25px;">
                 </div>
 
-                <a href="#" class="btn btn-outline-orange"
+                <!-- <a href="#" class="btn btn-outline-orange"
                     style="border: 2px solid var(--primary-orange); color: var(--primary-orange); background: transparent; padding: 12px 25px; border-radius: 6px; font-weight: 600; font-size: 15px; margin-bottom: 40px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; text-decoration: none;"
                     onmouseover="this.style.backgroundColor='var(--primary-orange)'; this.style.color='white';"
                     onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-orange)';">
                     Know More About Us <i class="fa-solid fa-arrow-right"></i>
-                </a>
+                </a> -->
 
                 <div class="about-stats" style="display: flex; gap: 20px;">
                     <div class="stat-card"
@@ -1360,12 +1394,12 @@
 
                 <!-- Orange Outline Border -->
                 <div
-                    style="position: absolute; right: 0; top: 30px; bottom: 30px; width: 85%; border: 2px solid var(--primary-orange); transform: skewX(-12deg); z-index: 0;">
+                    style="position: absolute; right: 40px; top: 30px; bottom: 30px; width: 85%; border: 2px solid var(--primary-orange); transform: skewX(-12deg); z-index: 0;">
                 </div>
 
                 <!-- Main Image Container -->
                 <div
-                    style="position: absolute; right: 20px; top: 15px; bottom: 45px; width: 85%; transform: skewX(-12deg); overflow: hidden; z-index: 1;">
+                    style="position: absolute; right: 60px; top: 15px; bottom: 45px; width: 85%; transform: skewX(-12deg); overflow: hidden; z-index: 1;">
                     <img src="./assets/common/About-image.png" alt="Foundry Machinery"
                         style="width: 120%; height: 100%; object-fit: cover; transform: skewX(12deg) translateX(-10%);">
                 </div>
@@ -1389,7 +1423,7 @@
 
                 <!-- Blue Badge (Bottom Right) -->
                 <div
-                    style="position: absolute; right: -15px; bottom: -15px; background-color: var(--deep-blue); color: white; transform: skewX(-12deg); z-index: 3; padding: 30px 45px; box-shadow: 0 15px 30px rgba(0,0,0,0.2);">
+                    style="position: absolute; right: 25px; bottom: -15px; background-color: var(--deep-blue); color: white; transform: skewX(-12deg); z-index: 3; padding: 30px 45px; box-shadow: 0 15px 30px rgba(0,0,0,0.2);">
                     <div style="transform: skewX(12deg); text-align: center;">
                         <h3 style="font-size: 56px; font-weight: 800; line-height: 1; margin: 0 0 8px 0;">10+</h3>
                         <p style="font-size: 14px; color: #cbd5e1; margin: 0; line-height: 1.4;">Years of<br>Industry
@@ -2373,6 +2407,7 @@
                 </div>
             </div>
 
+            <div class="swipe-hint">Swipe to view more <i class="fa-solid fa-arrow-right-long" style="margin-left:5px;"></i></div>
             <div class="carousel-dots">
                 <div class="dot active"></div>
                 <div class="dot"></div>
@@ -2494,6 +2529,7 @@
                                     style="color: var(--primary-orange);">*</span></label>
                             <input type="tel" class="form-control" placeholder="Your Phone Number" required
                                 pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                 style="padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;"
                                 onfocus="this.style.borderColor='var(--primary-orange)'"
                                 onblur="this.style.borderColor='#e2e8f0'">
@@ -2676,14 +2712,14 @@
             const machineriesTop = machineries ? machineries.getBoundingClientRect().top : window.innerHeight;
             const contactTop = contact ? contact.getBoundingClientRect().top : window.innerHeight;
             
-            header.className = ''; // Reset classes
+            header.className = 'header-white'; // Default to white background
             
             if (contactTop <= headerHeight + 10) {
-                header.classList.add('header-blue');
+                header.className = 'header-blue';
             } else if (machineriesTop <= headerHeight + 10) {
-                header.classList.add('header-white');
+                header.className = 'header-white';
             } else if (aboutTop <= headerHeight + 10) {
-                header.classList.add('header-blue');
+                header.className = 'header-blue';
             }
         });
         
