@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Foundry Machineries & Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #f26522;
+            --primary-orange-hover: #d95618;
+            --deep-blue: #031323;
+            --dark-blue: #031323;
+            --light-blue: #1d3557;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        html,
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            gap: 10px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-orange {
+            background-color: var(--primary-orange);
+            color: var(--white);
+        }
+
+        .btn-orange:hover {
+            background-color: var(--primary-orange-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-outline-orange {
+            background-color: transparent;
+            color: var(--primary-orange);
+            border: 1px solid var(--primary-orange);
+        }
+
+        .btn-outline-orange:hover {
+            background-color: var(--primary-orange);
+            color: var(--white);
+        }
+
+        /* Brochure Modal Styles */
+        .brochure-layout {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .brochure-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brochure-title {
+            color: var(--primary-orange);
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .brochure-images {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .brochure-images img {
+            max-width: 48%;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .brochure-subtitle {
+            color: var(--primary-orange);
+            font-size: 18px;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin-bottom: 15px;
+        }
+
+        .brochure-benefits {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .brochure-benefits .benefits-col {
+            flex: 1;
+        }
+
+        .brochure-benefits ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .brochure-benefits li {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .brochure-benefits li i {
+            color: var(--primary-orange);
+            margin-top: 3px;
+            font-size: 12px;
+        }
+
+        .brochure-capacity {
+            color: #1a4d8c;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .brochure-action {
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .brochure-images {
+                flex-direction: column;
+            }
+
+            .brochure-images img {
+                max-width: 100%;
+            }
+
+            .brochure-benefits {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Header */
+        header {
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.header-blue {
+            background-color: var(--deep-blue);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header.header-white {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 769px) {
+            header.header-white .nav-links li a {
+                color: var(--deep-blue);
+            }
+        }
+
+        header.header-white .nav-links li a:hover {
+            color: var(--primary-orange);
+            background-color: rgba(242, 101, 34, 0.1);
+        }
+
+        header.header-white .nav-links li a.active {
+            color: var(--white);
+        }
+
+        header.header-white .mobile-menu-btn {
+            color: var(--deep-blue);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--deep-blue);
+        }
+
+        .logo i {
+            color: var(--primary-orange);
+            font-size: 28px;
+        }
+
+        .logo span {
+            color: var(--primary-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links li a {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary-orange);
+            background-color: rgba(242, 101, 34, 0.1);
+        }
+        
+        .nav-links li a.active {
+            background-color: var(--primary-orange);
+            color: var(--white) !important;
+        }
+
+        .get-quote-btn {
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgba(11, 26, 48, 0.95) 0%, rgba(11, 26, 48, 0.85) 45%, transparent 65%), url('./assets/common/Home-Section-bg.png') center/cover no-repeat;
+            padding-top: 120px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-orange);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #d1d5db;
+            max-width: 550px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 60px;
+
+        }
+
+        .hero-actions a {
+            text-decoration: none;
+        }
+
+        .features-row {
+            display: flex;
+            gap: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px dashed var(--primary-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-orange);
+            font-size: 20px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .hero-floating-text {
+            position: absolute;
+            right: 50px;
+            bottom: 100px;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 32px;
+            color: var(--white);
+            transform: rotate(-5deg);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0 150px;
+            background-color: var(--white);
+        }
+
+        .about-wrapper {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .section-tag {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-orange);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary-orange);
+        }
+
+        .about h2 {
+            font-size: 42px;
+            color: var(--deep-blue);
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .about p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 25px 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            color: var(--primary-orange);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h4 {
+            color: var(--deep-blue);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .img-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            position: relative;
+        }
+
+        .img-main {
+            grid-column: 1 / 3;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .img-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -20px;
+            background-color: var(--deep-blue);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .experience-badge h3 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .experience-badge p {
+            font-size: 14px;
+            margin: 0;
+            color: #d1d5db;
+        }
+
+        .orange-shape {
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 250px;
+            height: 300px;
+            background-color: var(--primary-orange);
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+            padding: 40px;
+            color: var(--white);
+
+        }
+
+        /* Machineries Section */
+        .machineries {
+            background-color: var(--deep-blue);
+            padding: 70px 0;
+            color: var(--white);
+        }
+
+        .machineries .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+        }
+
+        .machineries .section-title h2 {
+            font-size: 42px;
+            line-height: 1.2;
+            margin-top: 10px;
+        }
+
+        .machineries .section-title h2 span {
+            color: var(--primary-orange);
+        }
+
+        .machineries .section-desc {
+            max-width: 500px;
+            color: #d1d5db;
+            font-size: 15px;
+        }
+
+        .carousel-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--primary-orange);
+            border-color: var(--primary-orange);
+        }
+
+        .products-grid {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 30px;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .products-grid::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+
+        .product-card {
+            min-width: 260px;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            color: var(--text-dark);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-img {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .product-img img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .product-card h4 {
+            font-size: 18px;
+            color: var(--deep-blue);
+            margin-bottom: 8px;
+        }
+
+        .product-card p {
+            color: var(--text-gray);
+            font-size: 13px;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .view-details {
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none !important;
+        }
+
+        .view-details:hover {
+            text-decoration: none !important;
+        }
+
+        .view-details i {
+            font-size: 12px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 30px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: var(--primary-orange);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-wrapper {
+            display: flex;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact h2 {
+            font-size: 42px;
+            color: var(--deep-blue);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .contact h2 span {
+            color: var(--primary-orange);
+        }
+
+        .contact>p {
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            font-size: 16px;
+            max-width: 500px;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(242, 101, 34, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-orange);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-text p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .contact-form {
+            flex: 1.2;
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            color: var(--deep-blue);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / 3;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group label span {
+            color: red;
+        }
+
+        .form-control {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-orange);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .watermark-text {
+            position: absolute;
+            right: -50px;
+            bottom: 50px;
+            font-size: 40px;
+            font-weight: 800;
+            color: rgba(0, 0, 0, 0.03);
+            line-height: 1.5;
+            text-align: right;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 26, 48, 0.8);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-gray);
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-orange);
+        }
+
+        .modal-body {
+            display: flex;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .modal-body::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .modal-img {
+            flex: 1;
+            background-color: var(--bg-light);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-img img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        .modal-info {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-info h3 {
+            font-size: 28px;
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+        }
+
+        .modal-info p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            padding: 25px 0;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        @media (max-width: 991px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .about-wrapper,
+            .contact-wrapper {
+                flex-direction: column;
+            }
+
+            .machineries .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .orange-shape {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: 1 / 2;
+            }
+
+            .contact {
+                flex-direction: column;
+            }
+
+            .contact-bg-img {
+                display: none !important;
+            }
+
+            .contact-quote-text {
+                position: relative !important;
+                right: auto !important;
+                top: auto !important;
+                transform: none !important;
+                order: 3;
+                margin-top: 50px;
+                text-align: center !important;
+                width: 100% !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .get-quote-btn {
+                display: none;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -250px;
+                left: auto;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background-color: var(--deep-blue);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                gap: 40px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.1);
+                transform: none;
+                border-radius: 15px 0 0 15px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero {
+                padding-top: 100px;
+                background: linear-gradient(to bottom, rgba(11, 26, 48, 0.2) 0%, rgba(11, 26, 48, 0.8) 40%, rgba(11, 26, 48, 0.95) 100%), url('./assets/common/Home-Section-bg.png') right center/cover no-repeat;
+            }
+
+            .hero-subtitle {
+                position: relative;
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+            }
+
+            .hero-subtitle::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 40px;
+                height: 2px;
+                background-color: var(--primary-orange);
+            }
+
+            .hero h1 {
+                font-size: 40px;
+                line-height: 1.1;
+                margin-bottom: 15px;
+            }
+
+            .hero p {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 30px;
+            }
+
+            .about h2,
+            .machineries .section-title h2,
+            .contact h2 {
+                font-size: 32px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 100%;
+                gap: 15px;
+            }
+
+            .hero-actions a {
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .hero-floating-text {
+                display: none;
+            }
+
+            .features-row {
+                flex-direction: column;
+                gap: 0;
+                border-top: none;
+                padding-top: 10px;
+            }
+
+            .feature-item {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 20px 0;
+                display: flex;
+                align-items: center;
+            }
+
+            .feature-item:last-child {
+                border-bottom: none;
+            }
+
+            .about,
+            .machineries,
+            .contact {
+                padding: 60px 0;
+            }
+
+            .about-stats {
+                flex-direction: column;
+            }
+
+            /* Mobile About Image Redesign */
+            .about-image {
+                height: auto !important;
+                padding-left: 0 !important;
+                margin-top: 40px !important;
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-image>div:nth-child(1) {
+                display: none !important;
+            }
+
+            .about-image>div:nth-child(2) {
+                position: relative !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+                width: 100% !important;
+                height: 350px !important;
+                transform: none !important;
+                border-radius: 8px !important;
+            }
+
+            .about-image>div:nth-child(2) img {
+                width: 100% !important;
+                transform: none !important;
+            }
+
+            .about-image>div:nth-child(3) {
+                position: relative !important;
+                left: auto !important;
+                top: auto !important;
+                transform: none !important;
+                width: 90% !important;
+                margin-top: -50px !important;
+                z-index: 2 !important;
+                padding: 30px !important;
+                text-align: center;
+            }
+
+            .about-image>div:nth-child(3)>div {
+                transform: none !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-image>div:nth-child(3) h3 {
+                font-size: 18px !important;
+                text-align: center !important;
+            }
+
+            .about-image>div:nth-child(3) ul {
+                text-align: center !important;
+            }
+
+            .about-image>div:nth-child(4) {
+                position: absolute !important;
+                right: 20px !important;
+                bottom: 250px !important;
+                transform: none !important;
+                padding: 20px !important;
+                border-radius: 8px !important;
+            }
+
+            .about-image>div:nth-child(4)>div {
+                transform: none !important;
+            }
+
+            .about-image>div:nth-child(4) h3 {
+                font-size: 32px !important;
+                margin-bottom: 5px !important;
+            }
+
+            .about-image>div:nth-child(4) p {
+                font-size: 12px !important;
+            }
+
+            .experience-badge {
+                right: 0;
+                bottom: 0;
+                padding: 20px;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+
+            .watermark-text {
+                font-size: 30px;
+                right: -20px;
+                bottom: 20px;
+            }
+
+            .modal-body {
+                flex-direction: column;
+            }
+
+            .modal-img {
+                padding: 20px;
+            }
+
+            .modal-info {
+                padding: 20px;
+            }
+
+            .modal-info h3 {
+                font-size: 24px;
+            }
+
+            .modal-info a {
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container navbar">
+            <a href="#home" class="logo" style="text-decoration: none;">
+                <img src="./assets/common/Logo.png" alt="Classic Foundry Logo"
+                    style="height: 70px; max-width: 100%; object-fit: contain;">
+            </a>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#machineries">Machineries</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="btn btn-orange get-quote-btn">
+                <i class="fa-regular fa-envelope"></i> Get a Quote
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-subtitle">Engineering Precision</span>
+                <h1>Powering Industrial <span>Innovation.</span></h1>
+                <p>We design and manufacture advanced foundry machineries and automation solutions to help you achieve
+                    higher productivity, consistent quality and a smarter tomorrow.</p>
+
+                <div class="hero-actions">
+                    <a href="#machineries" class="btn btn-orange">Explore Machineries <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+
+                <div class="features-row">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-gear"></i></div>
+                        <div class="feature-text">Precision<br>Engineering</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-stopwatch"></i></div>
+                        <div class="feature-text">Reliable<br>Performance</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-cubes"></i></div>
+                        <div class="feature-text">Customized<br>Solutions</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-floating-text">
+                Your Vision is<br>Crafted Here...
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about"
+        style="position: relative; overflow: hidden; padding-bottom: 70px; background-color: #f8fafc;">
+        <!-- Background Gear Icon -->
+        <i class="fa-solid fa-gear"
+            style="position: absolute; left: -180px; top: 50%; transform: translateY(-50%); font-size: 500px; color: transparent; -webkit-text-stroke: 4px #e2e8f0; z-index: 0;"></i>
+
+        <div class="container about-wrapper"
+            style="position: relative; z-index: 1; display: flex; gap: 40px; align-items: center;">
+            <div class="about-content" style="flex: 1; max-width: 550px; padding-right: 20px;">
+                <div class="section-tag"
+                    style="color: var(--primary-orange); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-size: 14px;">
+                    <span
+                        style="display: block; width: 30px; height: 2px; background-color: var(--primary-orange);"></span>
+                    ABOUT US
+                </div>
+                <h2
+                    style="font-size: 46px; color: var(--deep-blue); line-height: 1.15; margin-bottom: 20px; font-weight: 800; margin-top: 0;">
+                    Crafting the Future of<br><span style="color: var(--primary-orange);">Foundry Automation</span>
+                </h2>
+                <p style="color: #475569; font-size: 16px; margin-bottom: 25px; line-height: 1.6; font-weight: 500;">
+                    Classic Foundry Machineries & Automation is committed to delivering high-quality, innovative and
+                    reliable machinery solutions for the foundry industry. Our products are designed to improve
+                    productivity, ensure consistent quality and support sustainable manufacturing.
+                </p>
+                <div style="width: 40px; height: 3px; background-color: var(--primary-orange); margin-bottom: 25px;">
+                </div>
+
+                <a href="#" class="btn btn-outline-orange"
+                    style="border: 2px solid var(--primary-orange); color: var(--primary-orange); background: transparent; padding: 12px 25px; border-radius: 6px; font-weight: 600; font-size: 15px; margin-bottom: 40px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; text-decoration: none;"
+                    onmouseover="this.style.backgroundColor='var(--primary-orange)'; this.style.color='white';"
+                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-orange)';">
+                    Know More About Us <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <div class="about-stats" style="display: flex; gap: 20px;">
+                    <div class="stat-card"
+                        style="background-color: var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 25px 15px; border-radius: 8px; text-align: center; flex: 1;">
+                        <i class="fa-solid fa-gears"
+                            style="color: var(--primary-orange); font-size: 32px; margin-bottom: 15px;"></i>
+                        <h4
+                            style="color: var(--deep-blue); font-size: 14px; font-weight: 700; line-height: 1.3; margin: 0;">
+                            Advanced<br>Automation</h4>
+                    </div>
+                    <div class="stat-card"
+                        style="background-color: var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 25px 15px; border-radius: 8px; text-align: center; flex: 1;">
+                        <i class="fa-solid fa-bullseye"
+                            style="color: var(--primary-orange); font-size: 32px; margin-bottom: 15px;"></i>
+                        <h4
+                            style="color: var(--deep-blue); font-size: 14px; font-weight: 700; line-height: 1.3; margin: 0;">
+                            Precision<br>Engineering</h4>
+                    </div>
+                    <div class="stat-card"
+                        style="background-color: var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 25px 15px; border-radius: 8px; text-align: center; flex: 1;">
+                        <i class="fa-solid fa-chart-line"
+                            style="color: var(--primary-orange); font-size: 32px; margin-bottom: 15px;"></i>
+                        <h4
+                            style="color: var(--deep-blue); font-size: 14px; font-weight: 700; line-height: 1.3; margin: 0;">
+                            Reliable<br>Performance</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-image" style="flex: 1.2; position: relative; height: 500px; padding-left: 20px;">
+
+                <!-- Orange Outline Border -->
+                <div
+                    style="position: absolute; right: 0; top: 30px; bottom: 30px; width: 85%; border: 2px solid var(--primary-orange); transform: skewX(-12deg); z-index: 0;">
+                </div>
+
+                <!-- Main Image Container -->
+                <div
+                    style="position: absolute; right: 20px; top: 15px; bottom: 45px; width: 85%; transform: skewX(-12deg); overflow: hidden; z-index: 1;">
+                    <img src="./assets/common/About-image.png" alt="Foundry Machinery"
+                        style="width: 120%; height: 100%; object-fit: cover; transform: skewX(12deg) translateX(-10%);">
+                </div>
+
+                <!-- Orange Slanted Box (Left) -->
+                <div
+                    style="position: absolute; left: 20px; top: 50%; width: 230px; background-color: var(--primary-orange); color: white; transform: skewX(-12deg) translateY(-50%); z-index: 2; padding: 45px 35px; box-shadow: -15px 15px 30px rgba(0,0,0,0.15);">
+                    <div style="transform: skewX(12deg);">
+                        <h3
+                            style="font-size: 20px; font-weight: 700; line-height: 1.4; margin-bottom: 25px; font-style: italic;">
+                            Experience<br>Innovation<br>in Foundry<br>Machinery</h3>
+                        <div style="width: 30px; height: 2px; background-color: white; margin-bottom: 25px;"></div>
+                        <ul
+                            style="list-style: none; padding: 0; margin: 0; font-size: 15px; font-weight: 500; line-height: 1.8;">
+                            <li>Stronger</li>
+                            <li>Smarter</li>
+                            <li>More Productive</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Blue Badge (Bottom Right) -->
+                <div
+                    style="position: absolute; right: -15px; bottom: -15px; background-color: var(--deep-blue); color: white; transform: skewX(-12deg); z-index: 3; padding: 30px 45px; box-shadow: 0 15px 30px rgba(0,0,0,0.2);">
+                    <div style="transform: skewX(12deg); text-align: center;">
+                        <h3 style="font-size: 56px; font-weight: 800; line-height: 1; margin: 0 0 8px 0;">10+</h3>
+                        <p style="font-size: 14px; color: #cbd5e1; margin: 0; line-height: 1.4;">Years of<br>Industry
+                            Expertise</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Machineries Section -->
+    <section id="machineries" class="machineries">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-tag"
+                        style="color: var(--primary-orange); text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
+                        OUR MACHINERIES</div>
+                    <h2>Innovative Solutions<br><span>for a Stronger Tomorrow</span></h2>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 40px; max-width: 650px; justify-content: flex-end;">
+                    <div class="section-desc" style="margin: 0; max-width: 450px;">
+                        <p style="margin: 0;">From moulding to material handling, our complete range of foundry
+                            machineries are designed to deliver efficiency, accuracy and durability for modern casting
+                            operations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-wrapper" style="position: relative;">
+                <div class="products-grid" id="productGrid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-1/classy pour machine.png" alt="Classy Pour Machine">
+                        </div>
+                        <h4>Classy Pour Machine</h4>
+                        <p>High accuracy pouring with intelligent control.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title">CLASSY POUR MACHINE</h3>
+                                </div>
+                                <div class="brochure-images">
+                                    <img src="./assets/product-1/Screenshot 2026-09-04 174837.png" alt="Classy Pour Front">
+                                    <img src="./assets/product-1/classy pour machine.png" alt="Classy Pour Action">
+                                </div>
+                                <h4 class="brochure-subtitle">KEY BENEFITS:</h4>
+                                <div class="brochure-benefits">
+                                    <div class="benefits-col">
+                                        <p style="font-weight: 600;"><i class="fa-solid fa-diamond"
+                                                style="color: var(--primary-orange); font-size: 10px; margin-right:5px;"></i>
+                                            Artificial Intelligence Based programs that helps</p>
+                                        <ul style="padding-left: 15px;">
+                                            <li><i class="fa-solid fa-angle-right"></i> Uniform metal flow in minimum or
+                                                maximum metal range in ladle</li>
+                                            <li><i class="fa-solid fa-angle-right"></i> Avoids Short pour & Metal
+                                                spillage</li>
+                                            <li><i class="fa-solid fa-angle-right"></i> Bad mould can be skipped from
+                                                pouring</li>
+                                            <li><i class="fa-solid fa-angle-right"></i> CI & SG Preset time for pouring
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="benefits-col">
+                                        <ul>
+                                            <li><i class="fa-solid fa-diamond" style="font-size: 10px;"></i> High
+                                                Pouring Accuracy</li>
+                                            <li><i class="fa-solid fa-diamond" style="font-size: 10px;"></i> Instant
+                                                change of Inoculant min & maximum range</li>
+                                            <li><i class="fa-solid fa-diamond" style="font-size: 10px;"></i> Temperature
+                                                interlock for minimum and maximum range to maintain pouring temperature
+                                            </li>
+                                            <li><i class="fa-solid fa-diamond" style="font-size: 10px;"></i> Pouring
+                                                system synchronized with pouring line</li>
+                                            <li><i class="fa-solid fa-diamond" style="font-size: 10px;"></i> Data can be
+                                                stored and collected as PDF or XLS format</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h3 class="brochure-capacity">CAPACITY - 500Kgs, 750Kgs, 1Ton, 1.5Ton & 2Ton</h3>
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-2/Sand mixer.png" alt="Sand Mixer">
+                        </div>
+                        <h4>Sand Mixer</h4>
+                        <p>Uniform and efficient sand mixing.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title">SAND MIXER</h3>
+                                </div>
+
+                                <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                                    <div style="flex: 1; min-width: 200px;">
+                                        <img src="./assets/product-2/Sand mixer.png" alt="Sand Mixer"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6;">
+                                        <p style="margin-bottom: 10px;">Sand mixing machine is a mechanical device used
+                                            for mixing sand, binders, and water to produce molds and cores for casting
+                                            metal. It is an essential tool in the foundry industry, where metal casting
+                                            is a critical process.</p>
+                                        <p style="margin-bottom: 10px;">Sand mixers are strong machines for heavy-duty
+                                            applications and offered 12TPH to 70 TPH as a single machine.</p>
+                                        <p style="margin-bottom: 10px;">Mixing tank with wear-resistant coating with
+                                            small ceramic tiles. Mixing system with wear-resistant bottom rotating
+                                            ploughs.</p>
+                                        <p style="margin-bottom: 10px;">One independent high-speed turbine with
+                                            wear-resistant steel blades, for intensive mixing.</p>
+                                        <p>Our mixers are designed and built to obtain a sand with characteristics
+                                            suited to ensure an optimal and efficient moulding, especially with high
+                                            pressure automatic moulding machines. They are equipped with (optional)
+                                            specific systems to control weight, humidity and temperature of the incoming
+                                            sand, Aquatest, Which will automatically calculate the water addition
+                                            needed. Pneumatic injection of additives directly in to the mixing of the
+                                            sand will improve the quality of mix and reduces the wastage.</p>
+                                    </div>
+                                </div>
+
+                                <table
+                                    style="width: 100%; border-collapse: collapse; margin-bottom: 30px; text-align: center; font-size: 13px;">
+                                    <tr
+                                        style="border: 1px solid #ccc; font-weight: bold; color: var(--primary-orange);">
+                                        <td style="padding: 10px; border: 1px solid #ccc;">CAPACITY</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">300 Kgs</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">500 Kgs</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">1000 Kgs</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">1200 Kgs</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Shell Dia</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">1265 mm</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">1520 mm</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">1930 mm</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">1930 mm</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Motor kw</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">15 kw</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">37 kw</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">75 kw</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">90 kw</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Mixing Time (sec)</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">90 sec</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">90 sec</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">90 - 120 sec</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">90 - 120 sec</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Drive Type</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Direct Drive</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Direct Drive</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Direct Drive</td>
+                                        <td style="padding: 10px; border: 1px solid #ccc;">Direct Drive</td>
+                                    </tr>
+                                </table>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-3/Hooper.png" alt="Sand Storage Hopper">
+                        </div>
+                        <h4>Sand Storage Hopper</h4>
+                        <p>Large capacity and reliable performance.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title">SAND STORAGE HOPPER</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6;">
+                                        <p>Sand Storage Hopper are used to store the Fresh, reclaimed, Return sand in
+                                            large capacity. This hopper is fabricated from MS Channels, angle and
+                                            plates. Bottom side of the hopper connected with Belt conveyor to take the
+                                            sand from storage hopper. Specially designed Round shaped cylindrical type
+                                            silos are mostly used to store No-Bake and CO2 Mould in large quantity.
+                                            No-Bake / CO2 processed Reclaimed sands has less flow ability to avoid and
+                                            to get easy sand flow round silos are used. To avoid the sand choking and to
+                                            give the free movement the sand Special engineer uni-flow arrangement is
+                                            made in the bottom of the hopper and Load cone unit is mounted inside of the
+                                            hopper to avoid direct load over the conveyor. These load cone unit will
+                                            carry the total sand load and it will guide the sand to move freely.</p>
+                                        <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 5px;"></i>
+                                                CAPACITY FRONT 10Ton/hr TO 100Tons/hr</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 5px;"></i>
+                                                ROUND / RECTANGULAR SHAPED HOPPER ARE USED AS PER THE APPLICATION</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 5px;"></i>
+                                                STAINLESS STEEL OR FRP LINING CAN BE DONE (OPTIONAL)</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px;">
+                                        <img src="./assets/product-3/Hooper.png" alt="Sand Storage Hopper"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-5/Belt Conveyor.png" alt="Belt Conveyor">
+                        </div>
+                        <h4>Belt Conveyor</h4>
+                        <p>Smooth material handling for higher efficiency.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">BELT CONVEYOR</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6;">
+                                        <p style="margin-bottom: 10px;">Conveyor, any of various devices that provide
+                                            mechanized movement of material, as in a factory; they are used principally
+                                            in industrial applications but also on large farms, in warehousing and
+                                            freight-handling, and in movement of raw materials.</p>
+                                        <p style="margin-bottom: 20px;">Belt conveyors provide an effective way to move
+                                            charge material from a lower level to a higher level, such as from a scrap
+                                            storage area to a holding hopper on the melt deck. They are fast, quiet and
+                                            generate minimal dust.</p>
+
+                                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                            <div style="flex: 1; min-width: 250px;">
+                                                <ul
+                                                    style="list-style: none; padding: 0; font-weight: 600; font-size: 12px;">
+                                                    <li style="margin-bottom: 10px;"><i class="fa-solid fa-diamond"
+                                                            style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                        CAPACITIES FROM 5 TONS/HR TO 80 TONS/HR</li>
+                                                    <li><i class="fa-solid fa-diamond"
+                                                            style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                        WIDTH VARIES FROM 300MM TO 1200MM</li>
+                                                </ul>
+                                            </div>
+                                            <div style="flex: 1; min-width: 250px;">
+                                                <ul
+                                                    style="list-style: none; padding: 0; font-weight: 600; font-size: 12px;">
+                                                    <li style="margin-bottom: 10px;"><i class="fa-solid fa-diamond"
+                                                            style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                        HR & SHR GRADE BELTS ARE USED</li>
+                                                    <li><i class="fa-solid fa-diamond"
+                                                            style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                        DRIVEN WITH DIRECT DRIVE GEARED MOTOR</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px;">
+                                        <img src="./assets/product-5/Belt Conveyor.png" alt="Belt Conveyor"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-7/penumatic transpoeter.png" alt="Pneumatic Transporter">
+                        </div>
+                        <h4>Pneumatic Transporter</h4>
+                        <p>Efficient and dust-free material transfer.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">PNEUMATIC
+                                        TRANSPORTER</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p style="margin-bottom: 20px;">Pneumatic conveying systems use a series of
+                                            pipelines that move products by pumping air. These products typically
+                                            consist of powders or granules. These systems function by moving materials
+                                            through enclosed, airtight pipelines through a combination of airflow or
+                                            another type of pressure.</p>
+                                        <ul style="list-style: none; padding: 0; font-weight: 600; font-size: 12px;">
+                                            <li><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                CAPACITY 3 TON TO 8 TON PER HOUR</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px;">
+                                        <img src="./assets/product-7/penumatic transpoeter.png" alt="Pneumatic Transporter"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Product 7 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-4/Sand Master.png" alt="Classic Sand Master">
+                        </div>
+                        <h4>Classic Sand Master</h4>
+                        <p>Advanced sand testing and moisture control.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title">CLASSIC SAND MASTER</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p style="margin-bottom: 10px;">The Classic Sand Master measures compatibility
+                                            and sand strength from a 50 mm test sand sample extracted from the mixer.
+                                            Water is added to the mix based on the compatibility measurements. From the
+                                            sand strength measurements, the bentonite requirements are calculated and
+                                            can be adjusted in small increments in following batches towards a target
+                                            sand strength.</p>
+                                        <p style="margin-bottom: 10px;">As options, the Classic Sand Master can include
+                                            measurements of return sand temperature and moisture before the mixer. This
+                                            is particularly relevant for low moisture contents, or for return moisture
+                                            contents and sand temperatures with large variations.</p>
+                                        <p style="margin-bottom: 10px;">Water is added in two stages : Pre-water in the
+                                            beginning of the mixing cycle Trim-water after measurement of compatibility.
+                                            If the moisture sensor option is included, then up to 100% pre-water can be
+                                            added.</p>
+                                        <p style="margin-bottom: 10px;">Automatic water addition via compatibility : The
+                                            Classic Sand Master automatically takes and samples from the mixer, measures
+                                            compatibility and sand strength and determines the necessary amount of
+                                            water.</p>
+                                        <p style="margin-bottom: 20px;">The Classic Sand Master automatically adapts
+                                            itself to the sand</p>
+
+                                        <h4
+                                            style="color: var(--primary-orange); font-size: 16px; text-transform: uppercase;">
+                                            SUITABLE FOR ALL KIND OF INTENSIVE MIXER</h4>
+                                    </div>
+                                    <div
+                                        style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 15px;">
+                                        <img src="./assets/product-4/Sand Master.png" alt="Classic Sand Master Front"
+                                            style="width: 100%; object-fit: cover; border-radius: 4px;">
+                                        <img src="./assets/product-4/Screenshot 2026-09-04 174946.png" alt="Classic Sand Master Side"
+                                            style="width: 100%; object-fit: cover; border-radius: 4px;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 8 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-6/Feeder knockout.png" alt="Feeder Knockout">
+                        </div>
+                        <h4>Feeder Knockout</h4>
+                        <p>Efficient separation of castings from sand.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">FEEDER KNOCKOUT
+                                    </h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div style="flex: 1; min-width: 250px;">
+                                        <img src="./assets/product-6/Feeder knockout.png" alt="Feeder Knockout"
+                                            style="width: 100%; object-fit: contain; margin-bottom: 15px;">
+                                        <ul
+                                            style="list-style: none; padding: 0; font-size: 12px; font-weight: 600; color: var(--text-dark);">
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 5px;"></i>
+                                                CAPACITIES FROM 500 KGS TO 5000 KGS</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 5px;"></i>
+                                                DRIVEN WITH IMPORTED VIBRO MOTOR</li>
+                                            <li><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 5px;"></i>
+                                                UNIFORM SAND DISCHARGE</li>
+                                        </ul>
+                                    </div>
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p style="margin-bottom: 15px;">Knockout Cum Feeder with double eccentric shaft
+                                            as well as unbalance vibromotor technology which makes high amplitudes and
+                                            effective forward movement by this the castings are separated from sand and
+                                            transported to the handling zone.</p>
+                                        <p>INLINE KNOCKOUT MACHINE is of free floating twin eccentric shaft design. The
+                                            main body is supported on a set of coil springs. The rotating eccentric
+                                            shaft assembly is fitted at the top of the trough. The shaft run on high
+                                            quality anti friction bearings. The bearings are well protected by housings
+                                            to eliminate the entry of dust particles, to achieve longer life.</p>
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 9 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-8/Tumblast.png" alt="Tumblast Shot Blasting Machine">
+                        </div>
+                        <h4>Tumblast Shot Blasting Machine</h4>
+                        <p>Heavy duty surface finishing and cleaning.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">TUMBLAST / HANGER
+                                        TYPE SHOT BLASTING MACHINE</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p style="margin-bottom: 10px;">A Shot blasting machine is an enclosed equipment
+                                            designed for abrasive blasting for cleaning and preparing metal, stone and
+                                            other surfaces. It is a machine for shot peening, cleaning metal parts such
+                                            as forging, casting parts, steel surfaces, heavy metal structures, rusted
+                                            metal parts etc.</p>
+                                        <p style="margin-bottom: 20px;">Our shot blasting machines offer you almost
+                                            unlimited options for surface finishing from deburring, descaling,
+                                            de-sanding and rust removal to roughening, cosmetic blasting, smoothing and
+                                            edge rounding all the way to shot peening. After all, the functionality and
+                                            aesthetics of surfaces are not only an important sign of quality for
+                                            technical products, they also contribute significantly to their success on
+                                            the market. Surface finishing is therefore nearly always essential and has
+                                            to be integrated into existing production processes as an additional,
+                                            value-added step.</p>
+
+                                        <ul
+                                            style="list-style: none; padding: 0; font-weight: 600; font-size: 12px; margin-bottom: 20px;">
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                CAPACITY VARIES FROM 250Kgs TO 5000Kgs</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                PLC AND VFD CONTROLLED OPTIONS</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                MAGNETIC SHOT SEPERATOR GIVES LONGER LIFE FOR</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                CONSUMABLE SPARES WITH LESSER CYCLE TIME</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                MANGANESE STEEL LINING GIVES MAINTAINANCE FREE OPERATION</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                DIRECT DRIVE GEARED MOTOR ARE USED FOR SMOOTHER OPERATION</li>
+                                            <li style="margin-bottom: 5px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                CUSTOMIZED CABIN AND SIZE AS PER CUSTOMER REQUIREMENT CAN BE MADE</li>
+                                        </ul>
+
+                                        <table
+                                            style="width: 100%; border-collapse: collapse; text-align: left; font-size: 11px; margin-bottom: 10px;">
+                                            <tr
+                                                style="border: 1px solid #ccc; font-weight: bold; color: var(--primary-orange);">
+                                                <td style="padding: 5px; border: 1px solid #ccc;">CAPACITY</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">300 Kgs</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">500 Kgs</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">1000 Kgs</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">No Impeller Wheel</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">2 Wheels</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">2 Wheels</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">3 Wheels</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Blasting area (Dia &
+                                                    Height)</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Ø1000mm & 1000mm</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Ø1300mm & 1500mm</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Ø1600mm & 2000mm</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Impeller Drive Power
+                                                </td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">5 Kw x 2 Wheels</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">15 kw x 2 Wheels</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">15 Kw x 3 Wheels</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Blasting Time</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">4 to 5 Minutes</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">7 to 10 Minutes</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">10 to 12 Minutes</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Total Horse Power
+                                                    required</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">17 Kw</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">40 Kw</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">55 Kw</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Dust collection
+                                                    suction volume</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">7500 M³/Hour</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">10000 M³/Hour</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">12500 M³/Hour</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">Area required (L x W x
+                                                    Ht)</td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">5000 x 3500 x 4000 mm
+                                                </td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">7000 x 4500 x 5500 mm
+                                                </td>
+                                                <td style="padding: 5px; border: 1px solid #ccc;">8500 x 5000 x 5500 mm
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px;">
+                                        <img src="./assets/product-8/Tumblast.png" alt="Tumblast Shot Blasting Machine"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 10 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-9/Roll over machine.png" alt="Nobake Process">
+                        </div>
+                        <h4>Nobake Process</h4>
+                        <p>Complete chemical binder casting systems.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">NOBAKE PROCESS</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 1; min-width: 100%; display: flex; justify-content: space-between; gap: 15px; margin-bottom: 20px;">
+                                        <div style="flex: 1; text-align: center;">
+                                            <img src="./assets/product-9/Roll over machine.png" alt="Roll Over Machine"
+                                                style="width: 100%; border-radius: 8px; border: 2px solid var(--primary-orange); margin-bottom: 10px;">
+                                            <h4 style="color: var(--primary-orange); font-size: 14px;">ROLL OVER MACHINE
+                                            </h4>
+                                        </div>
+                                        <div style="flex: 1; text-align: center;">
+                                            <img src="./assets/product-9/Flood coating.png" alt="Flood Coating"
+                                                style="width: 100%; border-radius: 8px; border: 2px solid var(--primary-orange); margin-bottom: 10px;">
+                                            <h4 style="color: var(--primary-orange); font-size: 14px;">FLOOD COATING
+                                            </h4>
+                                        </div>
+                                        <div style="flex: 1; text-align: center;">
+                                            <img src="./assets/product-9/Continous mixture.png" alt="Continuous Mixture"
+                                                style="width: 100%; border-radius: 8px; border: 2px solid var(--primary-orange); margin-bottom: 10px;">
+                                            <h4 style="color: var(--primary-orange); font-size: 14px;">CONTINUOUS
+                                                MIXTURE</h4>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="flex: 1; min-width: 100%; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p>It is a casting process that involves the use of chemical binders to bond the
+                                            molding sand. Sand is conveyed to the mold fill station in preparation for
+                                            filling of the mold. A mixer is used to blend the sand with the chemical
+                                            binder and catalyst. As the sand exits the mixer, the binder begins the
+                                            chemical process of hardening. This method of mold filling can be used for
+                                            each half of the mold (cope and drag). Each mold half is then compacted to
+                                            form a strong and dense mold. A rollover is then used to remove the mold
+                                            half from the pattern box. After the sand has set, a mold wash may be
+                                            applied. Cores, if required, are set into the drag and the cope is closed
+                                            over the cores to complete the mold. A series of mold handling cars and
+                                            conveyors move the mold into position for pouring. Once poured, the mold is
+                                            allowed to cool before shake-out. The shake-out process involves breaking
+                                            the molded sand away from the casting. The casting then proceeds to a
+                                            casting finishing area for riser removal, casting finishing and
+                                            finalization. The broken pieces of molded sand are further broken down until
+                                            the sand is returned to grain size. The sand can now be either reclaimed for
+                                            reuse in the casting process or removed for disposal. Thermal reclamation is
+                                            the most efficient, complete method of Nobake sand reclamation.</p>
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 11 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-10/Bucket elevatr.png" alt="Bucket Elevator">
+                        </div>
+                        <h4>Bucket Elevator</h4>
+                        <p>Vertical conveying for bulk materials.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">BUCKET ELEVATOR
+                                    </h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div style="flex: 2; min-width: 300px;">
+                                        <ul
+                                            style="list-style: none; padding: 0; font-size: 14px; font-weight: 600; color: var(--text-dark); line-height: 2;">
+                                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 10px;"></i>
+                                                Capacity from 10 Tons/Hr to 80 Ton/Hr</li>
+                                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 10px;"></i>
+                                                Driven by direct drive geared motor with non return mechanism</li>
+                                            <li><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 10px;"></i>
+                                                Stainless steel bottom lining gives long life</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; text-align: center;">
+                                        <img src="./assets/product-10/Bucket elevatr.png" alt="Bucket Elevator"
+                                            style="max-width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 12 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-12/Over band magnetic seperator.png" alt="Over Band Magnetic Seperator">
+                        </div>
+                        <h4>Over Band Magnetic Seperator</h4>
+                        <p>Automatic removal of ferrous contamination.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">OVER BAND MAGNETIC
+                                        SEPERATOR</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <ul
+                                            style="list-style: none; padding: 0; font-weight: 600; font-size: 13px; margin-bottom: 20px;">
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                Ranges To Suit Belt Conveyor 300mm to 1200mm</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                High Gauss Value Permanent Magnets are Used</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                Driven with Geared Motors</li>
+                                        </ul>
+                                        <p>Magnetics manufactures suspended permanent magnetic over band separators that
+                                            are designed to eliminate tramp metal from the product carried by a belt,
+                                            vibratory feeders or by inclined planes. Overbands are mainly used to
+                                            protect machines such as crushers, shredders, and others, to remove ferrous
+                                            particles and purify products (Industries like Foundries, Coal Mines, Cement
+                                            Works, Food, Sponge Iron, Charcoal, Glass, Chemical Industries and Domestic
+                                            waste recycling Plants). Permanent magnetic over band separators are used
+                                            when an automatic removal of ferrous contamination is necessary. If not then
+                                            fixed permanent suspension.</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; text-align: center;">
+                                        <img src="./assets/product-12/Over band magnetic seperator.png" alt="Over Band Magnetic Seperator"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 13 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-13/Polygonal sieve.png" alt="Polygonal Sieve">
+                        </div>
+                        <h4>Polygonal Sieve</h4>
+                        <p>Efficient sieving for foundry return sand.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">POLYGONAL SIEVE
+                                    </h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <ul
+                                            style="list-style: none; padding: 0; font-weight: 600; font-size: 13px; margin-bottom: 20px;">
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                Capacity from 10ton/hr to 80ton/hr</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                FRP LINING GIVES LONG LIFE</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                DRIVEN WITH DIRECT DRIVE</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                GEARED MOTORS</li>
+                                        </ul>
+                                        <p>polygonal sieve is specially designed for sieving the foundry return sand.ss
+                                            mesh is used for sieving of the sand over the rotary drum type siever frame
+                                            for longer life.the receiving chute is designed in such a way that the sand
+                                            will not get struck in anyway. dust extraction arrangement is made on the
+                                            top to get free from pollution.the total system is driven by a worm
+                                            reduction gear unit and a motor supported by the anti-friction bearings
+                                            Polygonal Sieve is specially designed for sieving the foundry return sand.SS
+                                            Mesh is used for sieving of the sand over the Rotary drum type siever frame
+                                            for longer life.</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; text-align: center;">
+                                        <img src="./assets/product-13/Polygonal sieve.png" alt="Polygonal Sieve"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 14 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-14/Furance Charger.png" alt="Furnace Charger">
+                        </div>
+                        <h4>Furnace Charger</h4>
+                        <p>Fast and efficient charge material delivery.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">FURNACE CHARGER
+                                    </h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p style="margin-bottom: 20px;">Furnace charging systems are designed to deliver
+                                            charge material to the furnace quickly to allow for maximum utilization of
+                                            the melting system. We offer a variety of systems for assembling and moving
+                                            scrap and other charge materials to the melt deck and into the furnace.
+                                            Manual charging and most magnets have difficulty keeping pace with large
+                                            induction furnaces that are able to melt a full charge in less than 30
+                                            minutes. Furnace charging systems are available in various configurations
+                                            and modes of motion.</p>
+                                        <ul
+                                            style="list-style: none; padding: 0; font-weight: 600; font-size: 13px; margin-bottom: 20px;">
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                RANGES SUITABLE FOR 500Kgs FURNACE to 10Ton FURNACE</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                FEEDING CAPACITY FROM 500Kgs /Hr to 5Ton/Hr</li>
+                                            <li style="margin-bottom: 8px;"><i class="fa-solid fa-diamond"
+                                                    style="color: var(--primary-orange); font-size: 10px; margin-right: 8px;"></i>
+                                                PLC BASED CONTROLLED SYSTEM WITH VFD</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; text-align: center;">
+                                        <img src="./assets/product-14/Furance Charger.png" alt="Furnace Charger"
+                                            style="width: 100%; object-fit: contain; border-radius: 8px; border: 2px solid var(--primary-orange);">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 15 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="./assets/product-15/Mould box.png" alt="Mould Box & Pallet Car">
+                        </div>
+                        <h4>Mould Box & Pallet Car</h4>
+                        <p>High rigidity moulding boxes and pallet cars.</p>
+                        <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right"></i></a>
+
+                        <div class="detailed-content" style="display:none;">
+                            <div class="brochure-layout">
+                                <div class="brochure-header">
+                                    <h3 class="brochure-title"
+                                        style="text-decoration: none; color: var(--primary-orange);">MOULD BOX & PALLET
+                                        CAR</h3>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 30px;">
+                                    <div
+                                        style="flex: 2; min-width: 300px; font-size: 14px; color: var(--text-dark); line-height: 1.6; text-align: justify;">
+                                        <p style="margin-bottom: 15px;">The cast iron and ductile iron moulding boxes /
+                                            Mould jackets for Conventional and High-pressure moulding line. These mould
+                                            boxes are specially designed to with stand in high pressure during moulding
+                                            and high temperature after metal pouring.</p>
+                                        <p>Our mould pallet cars can be adapted for both conventional & high-pressure
+                                            mould handling systems. These Cast iron mould pallet cars provide high
+                                            rigidity and long life. Special self-guiding rollers made of heavy-duty
+                                            alloy steel ensure that the pallet cars are aligned when moving over the
+                                            rails. Pallet cars are designed with grooves on the top surface, which will
+                                            allow the hot gases to escape easily from mould boxes after metal pouring.
+                                        </p>
+                                    </div>
+                                    <div
+                                        style="flex: 1; min-width: 250px; text-align: center; display: flex; flex-direction: column; gap: 10px;">
+                                        <img src="./assets/product-15/Mould box.png" alt="Mould Box"
+                                            style="width: 100%; object-fit: contain;">
+                                        <img src="./assets/product-15/Mould box.png" alt="Pallet Car"
+                                            style="width: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <div class="brochure-action">
+                                    <a href="#contact" class="btn btn-orange"
+                                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                                        Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="carouselLeftArrow" class="carousel-fade-left"
+                    style="position: absolute; left: -20px; top: 0; bottom: 30px; width: 150px; background: linear-gradient(to left, transparent, var(--deep-blue)); pointer-events: none; display: flex; align-items: center; justify-content: flex-start; padding-left: 40px; z-index: 10; opacity: 0; transition: opacity 0.3s;">
+                    <button
+                        style="pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background-color: var(--primary-orange); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(242, 101, 34, 0.4); font-size: 18px; transition: transform 0.3s;"
+                        onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+                        onclick="document.getElementById('productGrid').scrollBy({left: -320, behavior: 'smooth'})">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                </div>
+                <div id="carouselRightArrow" class="carousel-fade-right"
+                    style="position: absolute; right: -20px; top: 0; bottom: 30px; width: 150px; background: linear-gradient(to right, transparent, var(--deep-blue)); pointer-events: none; display: flex; align-items: center; justify-content: flex-end; padding-right: 40px; z-index: 10; transition: opacity 0.3s;">
+                    <button
+                        style="pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background-color: var(--primary-orange); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(242, 101, 34, 0.4); font-size: 18px; transition: transform 0.3s;"
+                        onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+                        onclick="document.getElementById('productGrid').scrollBy({left: 320, behavior: 'smooth'})">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="carousel-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact"
+        style="position: relative; padding: 80px 0; background-color: #f8fafc; overflow: hidden; display: flex; align-items: center;">
+
+        <!-- Right Background Image -->
+        <img src="./assets/common/contact-section.png" alt="Gears Background" class="contact-bg-img"
+            style="position: absolute; right: 0; top: 0; height: 100%; object-fit: cover; z-index: 0; opacity: 0.9; max-width: 450px;">
+
+        <!-- Right Quote Text -->
+        <div class="contact-quote-text"
+            style="position: absolute; right: 40px; top: 50%; transform: translateY(-50%); z-index: 4; text-align: left; width: 220px;">
+            <p
+                style="color: var(--deep-blue); font-size: 15px; font-weight: 600; letter-spacing: 4px; line-height: 2.2; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
+                YOUR VISION<br>
+                OUR MACHINERY<br>
+                A STRONGER<br>
+                TOMORROW
+            </p>
+            <div style="width: 30px; height: 3px; background-color: var(--primary-orange);"></div>
+        </div>
+
+        <div class="container contact-wrapper"
+            style="position: relative; z-index: 3; display: flex; gap: 50px; align-items: stretch;">
+            <div class="contact-info" style="flex: 1; max-width: 450px; padding-right: 20px;">
+                <div class="section-tag"
+                    style="color: var(--primary-orange); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-size: 14px;">
+                    <span
+                        style="display: block; width: 30px; height: 2px; background-color: var(--primary-orange);"></span>
+                    CONTACT US
+                </div>
+                <h2
+                    style="font-size: 40px; color: var(--deep-blue); line-height: 1.15; margin-bottom: 20px; font-weight: 800; margin-top: 0;">
+                    Let's Build Something<br><span style="color: var(--primary-orange);">Powerful Together</span>
+                </h2>
+                <p style="color: #475569; font-size: 15px; margin-bottom: 35px; line-height: 1.6; font-weight: 500;">
+                    Get in touch with us for enquiries, quotations or customized foundry solutions. Our team is ready to
+                    support your needs.
+                </p>
+
+                <div class="contact-list" style="display: flex; flex-direction: column; gap: 25px;">
+                    <div class="contact-item" style="display: flex; gap: 20px; align-items: center;">
+                        <div class="contact-icon"
+                            style="width: 45px; height: 45px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(242, 101, 34, 0.3);">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="contact-text">
+                            <p style="margin: 0; color: #475569; font-size: 15px; line-height: 1.5; font-weight: 500;">
+                                2/307 I, Auto Nagar, Kuttayur, Karamadai,<br>Coimbatore - 641 104</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" style="display: flex; gap: 20px; align-items: center;">
+                        <div class="contact-icon"
+                            style="width: 45px; height: 45px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(242, 101, 34, 0.3);">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <p style="margin: 0; color: #475569; font-size: 15px; line-height: 1.5; font-weight: 500;">
+                                +91 81100 63887, 95856 25135</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" style="display: flex; gap: 20px; align-items: center;">
+                        <div class="contact-icon"
+                            style="width: 45px; height: 45px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(242, 101, 34, 0.3);">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <p style="margin: 0; color: #475569; font-size: 15px; line-height: 1.5; font-weight: 500;">
+                                info@classicfoundrymachineries.in<br>sales@classicfoundrymachineries.in</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form"
+                style="flex: 1.2; background-color: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); max-width: 600px;">
+                <h3
+                    style="font-size: 22px; color: var(--deep-blue); margin-bottom: 25px; font-weight: 700; margin-top: 0;">
+                    Send Us a Message</h3>
+                <form id="contactForm"
+                    onsubmit="event.preventDefault(); alert('Message sent successfully!'); this.reset();">
+                    <div class="form-grid"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #64748b;">Name <span
+                                    style="color: var(--primary-orange);">*</span></label>
+                            <input type="text" class="form-control" placeholder="Your Name" required minlength="2"
+                                maxlength="50"
+                                style="padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;"
+                                onfocus="this.style.borderColor='var(--primary-orange)'"
+                                onblur="this.style.borderColor='#e2e8f0'">
+                        </div>
+                        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #64748b;">Company Name</label>
+                            <input type="text" class="form-control" placeholder="Company Name"
+                                style="padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;"
+                                onfocus="this.style.borderColor='var(--primary-orange)'"
+                                onblur="this.style.borderColor='#e2e8f0'">
+                        </div>
+                        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #64748b;">Email <span
+                                    style="color: var(--primary-orange);">*</span></label>
+                            <input type="email" class="form-control" placeholder="Your Email" required
+                                style="padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;"
+                                onfocus="this.style.borderColor='var(--primary-orange)'"
+                                onblur="this.style.borderColor='#e2e8f0'">
+                        </div>
+                        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #64748b;">Phone <span
+                                    style="color: var(--primary-orange);">*</span></label>
+                            <input type="tel" class="form-control" placeholder="Your Phone Number" required
+                                pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number"
+                                style="padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;"
+                                onfocus="this.style.borderColor='var(--primary-orange)'"
+                                onblur="this.style.borderColor='#e2e8f0'">
+                        </div>
+                        <div class="form-group full"
+                            style="grid-column: 1 / 3; display: flex; flex-direction: column; gap: 6px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #64748b;">Message <span
+                                    style="color: var(--primary-orange);">*</span></label>
+                            <textarea class="form-control" placeholder="Tell us about your requirement..." required
+                                style="padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box; min-height: 100px; resize: vertical;"
+                                onfocus="this.style.borderColor='var(--primary-orange)'"
+                                onblur="this.style.borderColor='#e2e8f0'"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-orange"
+                        style="background-color: var(--primary-orange); color: white; padding: 12px 25px; border: none; border-radius: 4px; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: background-color 0.3s;"
+                        onmouseover="this.style.backgroundColor='#d8541a'"
+                        onmouseout="this.style.backgroundColor='var(--primary-orange)'">Send Message <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Classic Foundry Machineries & Automation. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div class="modal-img">
+                    <img id="modalImg" src="" alt="Product Image">
+                </div>
+                <div class="modal-info">
+                    <h3 id="modalTitle">Product Title</h3>
+                    <p id="modalDesc">Product description goes here.</p>
+                    <a href="#contact" class="btn btn-orange"
+                        onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request
+                        Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - document.querySelector('header').offsetHeight, // Adjust for fixed header
+                        behavior: 'smooth'
+                    });
+
+                    // Update active class
+                    document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-xmark');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('productModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalBody = modal.querySelector('.modal-body');
+
+        document.querySelectorAll('.view-details').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const card = this.closest('.product-card');
+                const detailedContent = card.querySelector('.detailed-content');
+
+                if (detailedContent) {
+                    modalBody.innerHTML = detailedContent.innerHTML;
+                } else {
+                    const title = card.querySelector('h4').innerText;
+                    const desc = card.querySelector('p').innerText;
+                    const imgSrc = card.querySelector('img').src;
+
+                    modalBody.innerHTML = `
+                        <div class="modal-img">
+                            <img src="${imgSrc}" alt="Product Image">
+                        </div>
+                        <div class="modal-info">
+                            <h3>${title}</h3>
+                            <p>${desc}</p>
+                            <a href="#contact" class="btn btn-orange" onclick="document.getElementById('productModal').classList.remove('active'); document.body.style.overflow='auto';">Request Quote</a>
+                        </div>
+                    `;
+                }
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Carousel Navigation Visibility Logic
+        const grid = document.getElementById('productGrid');
+        const leftArrow = document.getElementById('carouselLeftArrow');
+        const rightArrow = document.getElementById('carouselRightArrow');
+
+        const updateArrows = () => {
+            if (grid.scrollLeft > 20) {
+                leftArrow.style.opacity = '1';
+                leftArrow.querySelector('button').style.pointerEvents = 'auto';
+            } else {
+                leftArrow.style.opacity = '0';
+                leftArrow.querySelector('button').style.pointerEvents = 'none';
+            }
+
+            if (grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 20) {
+                rightArrow.style.opacity = '0';
+                rightArrow.querySelector('button').style.pointerEvents = 'none';
+            } else {
+                rightArrow.style.opacity = '1';
+                rightArrow.querySelector('button').style.pointerEvents = 'auto';
+            }
+        };
+
+        if (grid) {
+            grid.addEventListener('scroll', updateArrows);
+            window.addEventListener('resize', updateArrows);
+            setTimeout(updateArrows, 100);
+        }
+
+        // Dynamic Header Background Logic
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const headerHeight = header.offsetHeight;
+            
+            const about = document.getElementById('about');
+            const machineries = document.getElementById('machineries');
+            const contact = document.getElementById('contact');
+            
+            const aboutTop = about ? about.getBoundingClientRect().top : window.innerHeight;
+            const machineriesTop = machineries ? machineries.getBoundingClientRect().top : window.innerHeight;
+            const contactTop = contact ? contact.getBoundingClientRect().top : window.innerHeight;
+            
+            header.className = ''; // Reset classes
+            
+            if (contactTop <= headerHeight + 10) {
+                header.classList.add('header-blue');
+            } else if (machineriesTop <= headerHeight + 10) {
+                header.classList.add('header-white');
+            } else if (aboutTop <= headerHeight + 10) {
+                header.classList.add('header-blue');
+            }
+        });
+        
+        // Trigger on load
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+
+</html>
